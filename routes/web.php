@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\NewUserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +34,9 @@ Route::middleware(['auth', 'verified'])
 ->group(function() {
     // Le varie rotte di amministrazione
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::resource('posts', PostController::class)->parameters([
-    //     'posts' => 'post:slug'
-    // ]);
+    Route::resource('user', NewUserController::class)->parameters([
+        'user' => 'user:slug'
+    ]);
 });
 
 Route::middleware('auth')->group(function () {
