@@ -55,16 +55,16 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.user.index' ? 'bg-secondary' : '' }}" href="{{ route('admin.user.index') }}">
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.profile.index' ? 'bg-secondary' : '' }}" href="{{ route('admin.profile.index') }}">
                                     <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> {{$user->name}}
                                 </a>
                             </li>
 
-                            {{-- <li class="nav-item">
-                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.posts.create' ? 'bg-secondary' : '' }}" href="{{ route('admin.posts.create') }}">
-                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Crea post
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.profile.create' ? 'bg-secondary' : '' }}" href="{{ route('admin.profile.create',  ['profile' => Auth::user()->slug] )}}">
+                                    <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Crea profilo
                                 </a>
-                            </li> --}}
+                            </li>
                         </ul>
 
 

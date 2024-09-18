@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Models\Organiser;
+use App\Models\Type;
 
-class NewUserController extends Controller
+class NewProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +21,10 @@ class NewUserController extends Controller
     public function index()
     {
         $user = Auth::user();
+        $types = Type::all();
+        $organiser = Organiser::all();
 
-        return view('admin.newUser.index' , compact('user'));
+        return view('admin.profile.index' , compact('user', 'types', 'organiser'));
     }
 
     /**
@@ -30,7 +34,11 @@ class NewUserController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $types = Type::all();
+        $organiser = Organiser::all();
+
+        return view('admin.profile.index' , compact('user', 'types', 'organiser'));
     }
 
     /**
