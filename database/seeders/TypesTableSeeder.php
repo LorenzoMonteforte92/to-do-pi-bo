@@ -32,6 +32,7 @@ class TypesTableSeeder extends Seeder
             'riunione',
             'open day',
             'giochi da tavolo',
+            'concerti',
 
         ];
 
