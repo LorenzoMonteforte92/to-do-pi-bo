@@ -38,7 +38,7 @@ class NewProfileController extends Controller
         $types = Type::all();
         $organiser = Organiser::all();
 
-        return view('admin.profile.index' , compact('user', 'types', 'organiser'));
+        return view('admin.profile.create' , compact('user', 'types', 'organiser'));
     }
 
     /**
@@ -49,7 +49,7 @@ class NewProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $formdata = $request->all();
     }
 
     /**
