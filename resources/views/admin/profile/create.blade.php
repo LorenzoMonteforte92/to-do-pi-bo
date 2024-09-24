@@ -14,7 +14,15 @@
 @endif
 <div class="mb-5" >
   <h2 class="mb-3" >Benvenut* {{ $user->name }}</h2>
-  <h5>Completa il tuo profilo con ulteriori informazioni</h5>
+  <h5>Crea un profilo da organizzatore da cui gestire i tuoi eventi</h5>
+</div>
+
+<div class="mb-4">
+    <label for="name" class="form-label"><strong>Nome della tua realtà *</strong></label>
+    <input class="form-control @error('name') is-invalid @enderror " type="text" id="name" name="name" value="{{ old('name') }}"></input>
+    @error('name')
+        <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
 </div>
 
 <form action="{{ route('admin.profile.store') }}" method="POST" enctype="multipart/form-data">

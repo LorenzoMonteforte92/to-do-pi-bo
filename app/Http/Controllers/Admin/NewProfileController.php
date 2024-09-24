@@ -55,11 +55,14 @@ class NewProfileController extends Controller
     {
         $validate = $request->validate(
             [
+                'name' => 'required|string|max:100',
                 'img' => 'nullable|file|mimes:png,jpg,jpeg|max:2044',
                 'phone_num' => 'nullable|string|max:15|min:10',
                 'bio' => 'nullable|string|min:10',
             ],
             [
+                'name.required' => 'Aggiungi il nome della tua realtà',
+                'name.max' => 'Il nome ha raggiunto la lunghezza massima di caratteri',
                 'img.mimes' => 'il formato del logo deve essere png, jpg o jpeg',
                 'img.max' => 'il file non può superare i 2mb',
                 'phone_num.min' => 'il numero di telefono deve contenere minimo 10 cifre',
@@ -89,7 +92,7 @@ class NewProfileController extends Controller
         if($request->has('organiser_id')) {
             $newProfile->organisers()->sync($formdata['organiser_id']);
         }
-        return redirect()->route('admin.profile.show')->with('message', 'Profilo aggiornato con successo');;
+        return redirect()->route('admin.profile.show')->with('message', 'Grazie' . Auth::user()->name . 'hai creato con successo un profilo per:' . $newProfile->name . '!');;
         }
 
     /**
