@@ -13,20 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('organiser_new_profile', function (Blueprint $table) {
-            $table->unsignedBigInteger('organiser_id');
-            $table->foreign('organiser_id')
-            ->references('id')
-            ->on('organisers')
-            ->onDelete('cascade');
-
+        Schema::create('new_profile_organiser', function (Blueprint $table) {
             $table->unsignedBigInteger('new_profile_id');
             $table->foreign('new_profile_id')
             ->references('id')
             ->on('new_profiles')
             ->onDelete('cascade');
 
-            $table->primary(['organiser_id', 'new_profile_id']);
+            $table->unsignedBigInteger('organiser_id');
+            $table->foreign('organiser_id')
+            ->references('id')
+            ->on('organisers')
+            ->onDelete('cascade');
+
+            $table->primary(['new_profile_id', 'organiser_id']);
+
+
         });
     }
 
@@ -37,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organiser_new_profile');
+        Schema::dropIfExists('new_profile_organiser');
     }
 };

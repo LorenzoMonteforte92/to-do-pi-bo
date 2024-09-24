@@ -16,6 +16,7 @@ class NewProfile extends Model
         'latitude',
         'longitude',
         'bio',
+        'slug'
     ];
 
     public function user()

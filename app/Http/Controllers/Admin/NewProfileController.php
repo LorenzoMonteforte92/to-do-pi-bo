@@ -101,7 +101,7 @@ class NewProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show(NewProfile $newProfile)
     {
         
         $user = Auth::user();

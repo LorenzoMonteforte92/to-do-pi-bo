@@ -17,16 +17,19 @@
   <h5>Crea un profilo da organizzatore da cui gestire i tuoi eventi</h5>
 </div>
 
-<div class="mb-4">
-    <label for="name" class="form-label"><strong>Nome della tua realtà *</strong></label>
-    <input class="form-control @error('name') is-invalid @enderror " type="text" id="name" name="name" value="{{ old('name') }}"></input>
-    @error('name')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
 <form action="{{ route('admin.profile.store') }}" method="POST" enctype="multipart/form-data">
     @csrf 
+
+    
+    <div class="mb-4">
+        <label for="name" class="form-label"><strong>Nome della tua realtà *</strong></label>
+        <input class="form-control @error('name') is-invalid @enderror " type="text" id="name" name="name" value="{{ old('name') }}"></input>
+        @error('name')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+
     <div class="mb-4" >
       <label class="form-label"  for="organiser_id"><strong>Che tipo di professionista sei?</strong></label>
     <select class="form-select" aria-label="Default select example" id="organiser_id" name="organiser_id" >
