@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\NewProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -10,9 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use App\Models\Organiser;
 use App\Models\Type;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User as ModelsUser;
+use Illuminate\Support\Str;
+
 
 class NewProfileController extends Controller
 {
@@ -74,16 +75,21 @@ class NewProfileController extends Controller
             $formdata['img'] = $img_path;
         }
 
-        $incompleteUser = Auth::user();
-        $incompleteUser->img = $formdata['img'];
-        $incompleteUser->phone_num = $formdata['phone_num'];
-        $incompleteUser->bio = $formdata['bio'];
-        $incompleteUser->save();
+        
+        $slug = Str::slug($formdata['name'] . rand(10,110) . Str::random(2));
+
+        $newProfile = new NewProfile([
+            'user_id' => Auth::id(),
+            'slug' => $slug,
+        ]);
+
+        $newProfile->fill($formdata);
+        $newProfile->save();
 
         if($request->has('organiser_id')) {
-            $incompleteUser->organisers()->sync($formdata['organiser_id']);
+            $newProfile->organisers()->sync($formdata['organiser_id']);
         }
-        return redirect()->route('admin.profile.show');
+        return redirect()->route('admin.profile.show')->with('message', 'Profilo aggiornato con successo');;
         }
 
     /**
@@ -92,9 +98,14 @@ class NewProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ModelsUser $user)
     {
-        //
+        
+        $user = Auth::user();
+        $types = Type::all();
+        $organiser = Organiser::all();
+
+        return view('admin.profile.show' , compact('user', 'types', 'organiser'));
     }
 
     /**

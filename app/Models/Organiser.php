@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Organiser extends Model
 {
     use HasFactory;
-    public function users() {
-        return $this->belongsToMany(User::class);
+    public function newProfiles() {
+        return $this->belongsToMany(NewProfile::class);
     }
 }

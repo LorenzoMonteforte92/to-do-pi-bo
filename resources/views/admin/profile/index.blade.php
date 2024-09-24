@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title') {{'Profilo Personale'}} 
+@section('title') {{'Dashboard Personale'}} 
 @endsection
 
 @section('content')
