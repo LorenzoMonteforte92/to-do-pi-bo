@@ -13,7 +13,7 @@ use App\Models\Organiser;
 use App\Models\Type;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Str;
-
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class NewProfileController extends Controller
 {
@@ -101,7 +101,7 @@ class NewProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ModelsUser $user)
+    public function show(Profile $profile)
     {
         
         $user = Auth::user();
