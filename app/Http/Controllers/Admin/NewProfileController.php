@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use App\Models\Organiser;
 use App\Models\Type;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Database\Eloquent\Model;
 
 class NewProfileController extends Controller
 {
@@ -49,8 +52,39 @@ class NewProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $request->validate(
+            [
+                'img' => 'nullable|file|mimes:png,jpg,jpeg|max:2044',
+                'phone_num' => 'nullable|string|max:15|min:10',
+                'bio' => 'nullable|string|min:10',
+            ],
+            [
+                'img.mimes' => 'il formato del logo deve essere png, jpg o jpeg',
+                'img.max' => 'il file non può superare i 2mb',
+                'phone_num.min' => 'il numero di telefono deve contenere minimo 10 cifre',
+                'phone_num.max' => 'il numero di telefono deve contenere massimo 15 cifre',
+                'bio.min' => 'Descriviti usando almeno 10 caratteri',
+            ]
+
+        );
         $formdata = $request->all();
-    }
+
+        if ($request->hasFile('img')) {
+            $img_path = Storage::disk('public')->put('projects_images', $formdata['img']);
+            $formdata['img'] = $img_path;
+        }
+
+        $incompleteUser = Auth::user();
+        $incompleteUser->img = $formdata['img'];
+        $incompleteUser->phone_num = $formdata['phone_num'];
+        $incompleteUser->bio = $formdata['bio'];
+        $incompleteUser->save();
+
+        if($request->has('organiser_id')) {
+            $incompleteUser->organisers()->sync($formdata['organiser_id']);
+        }
+        return redirect()->route('admin.profile.show');
+        }
 
     /**
      * Display the specified resource.
