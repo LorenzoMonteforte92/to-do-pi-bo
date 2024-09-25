@@ -3,5 +3,5 @@
 @endsection
 
 @section('content')
-<h1>boobs</h1>
+<h1>boobsbubidi</h1>
 @endsection
