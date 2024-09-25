@@ -81,18 +81,23 @@ class NewProfileController extends Controller
         
         $slug = Str::slug($formdata['name'] . rand(10,110) . Str::random(2));
 
-        $newProfile = new NewProfile([
-            'user_id' => Auth::id(),
-            'slug' => $slug,
-        ]);
+        // $newProfile = new NewProfile([
+        //     'user_id' => Auth::id(),
+        //     'slug' => $slug,
+        // ]);
+        $newProfile = new NewProfile($formdata);
+        $newProfile->user_id = Auth::id();
+        $newProfile->slug = $slug;
 
         $newProfile->fill($formdata);
         $newProfile->save();
 
+        dd();
+
         if($request->has('organiser_id')) {
             $newProfile->organisers()->sync($formdata['organiser_id']);
         }
-        return redirect()->route('admin.profile.show')->with('message', 'Grazie' . Auth::user()->name . 'hai creato con successo un profilo per:' . $newProfile->name . '!');;
+        return redirect()->route('admin.profile.show', ['user' => Auth::user()->slug])->with('message', 'Grazie' . Auth::user()->name . 'hai creato con successo un profilo per:' . $newProfile->name . '!');;
         }
 
     /**
@@ -103,12 +108,15 @@ class NewProfileController extends Controller
      */
     public function show(NewProfile $newProfile)
     {
+        if ($newProfile->user_id !== auth()->id()) {
+            abort(403, 'Ops, divieto di accesso');
+        }
         
         $user = Auth::user();
         $types = Type::all();
         $organiser = Organiser::all();
 
-        return view('admin.profile.show' , compact('user', 'types', 'organiser'));
+        return view('admin.profile.show' , compact('newProfile', 'user', 'types', 'organiser'));
     }
 
     /**
