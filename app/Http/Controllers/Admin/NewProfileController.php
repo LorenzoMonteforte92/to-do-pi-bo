@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Organiser;
 use App\Models\Type;
 use App\Models\User as ModelsUser;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
@@ -92,8 +93,6 @@ class NewProfileController extends Controller
         $newProfile->fill($formdata);
         $newProfile->save();
 
-        dd();
-
         if($request->has('organiser_id')) {
             $newProfile->organisers()->sync($formdata['organiser_id']);
         }
@@ -106,17 +105,37 @@ class NewProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(NewProfile $newProfile)
+    public function show(User $user)
     {
-        if ($newProfile->user_id !== auth()->id()) {
-            abort(403, 'Ops, divieto di accesso');
+       
+        // $userId = Auth::id();
+        // $newProfile = NewProfile::where('user_id', $userId)->first();
+
+        // dd($userId);
+
+        // if ($newProfile->user_id !== Auth::user()->id) {
+        //     abort(403, 'Ops, divieto di accesso');
+        // }
+    
+        // $newProfile = DB::table('users')
+        //             ->join('new_profiles', 'users.id','=', 'new_profiles.user_id')
+        //             ->where('new_profiles.user_id', '=', $user->id);
+
+        $newProfile = $user->newProfiles()->first(); // o usa una logica personalizzata
+
+        // Se il profilo non esiste o non è associato all'utente, abort
+        if (!$newProfile) {
+            abort(404, 'Profilo non trovato');
         }
+    
+        // Autorizza l'azione usando la policy
+        $this->authorize('view', $newProfile);          
         
         $user = Auth::user();
         $types = Type::all();
         $organiser = Organiser::all();
 
-        return view('admin.profile.show' , compact('newProfile', 'user', 'types', 'organiser'));
+        return view('admin.profile.show' , compact( 'user', 'types', 'organiser'));
     }
 
     /**
