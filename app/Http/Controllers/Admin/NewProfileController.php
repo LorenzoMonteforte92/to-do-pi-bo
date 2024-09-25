@@ -96,7 +96,7 @@ class NewProfileController extends Controller
         if($request->has('organiser_id')) {
             $newProfile->organisers()->sync($formdata['organiser_id']);
         }
-        return redirect()->route('admin.profile.show', ['user' => Auth::user()->slug])->with('message', 'Grazie' . Auth::user()->name . 'hai creato con successo un profilo per:' . $newProfile->name . '!');;
+        return redirect()->route('admin.profile.show', ['user' => Auth::user()->slug])->with('message', 'Grazie ' . Auth::user()->name . ' hai creato con successo un profilo per: ' . $newProfile->name . '!');;
         }
 
     /**
@@ -107,21 +107,9 @@ class NewProfileController extends Controller
      */
     public function show(User $user)
     {
-       
-        // $userId = Auth::id();
-        // $newProfile = NewProfile::where('user_id', $userId)->first();
 
-        // dd($userId);
-
-        // if ($newProfile->user_id !== Auth::user()->id) {
-        //     abort(403, 'Ops, divieto di accesso');
-        // }
-    
-        // $newProfile = DB::table('users')
-        //             ->join('new_profiles', 'users.id','=', 'new_profiles.user_id')
-        //             ->where('new_profiles.user_id', '=', $user->id);
-
-        $newProfile = $user->newProfiles()->first(); // o usa una logica personalizzata
+        // utilizza il metodo definito nel model per recuperare il profilo associato
+        $newProfile = $user->newProfiles()->with('organisers')->first();
 
         // Se il profilo non esiste o non è associato all'utente, abort
         if (!$newProfile) {
@@ -132,10 +120,8 @@ class NewProfileController extends Controller
         $this->authorize('view', $newProfile);          
         
         $user = Auth::user();
-        $types = Type::all();
-        $organiser = Organiser::all();
 
-        return view('admin.profile.show' , compact( 'user', 'types', 'organiser'));
+        return view('admin.profile.show' , compact( 'user', 'newProfile'));
     }
 
     /**

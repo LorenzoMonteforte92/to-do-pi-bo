@@ -18,10 +18,10 @@ class OrganisersTableSeeder extends Seeder
     {
         $organisers = [
             
-            'locale',
-            'associazione',
-            'organizzatore privato',
-            'collettivo'
+            'Locale',
+            'Associazione',
+            'Organizzatore privato',
+            'Collettivo'
         ];
 
         foreach($organisers as $singleOrganiser){
