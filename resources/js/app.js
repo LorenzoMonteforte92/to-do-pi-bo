@@ -68,8 +68,6 @@ import.meta.glob([
   }
 
   
-
-  
   // Funzione per cercare l'indirizzo
   document.getElementById('address-search').addEventListener('click', function() {
     let address = document.getElementById('addressInput').value;
@@ -113,31 +111,10 @@ import.meta.glob([
     });
 });
 
- // Funzione per ottenere le coordinate al clic sulla mappa
-    map.on('click', function (e) {
-        let lat = e.lngLat.lat;
-        let lon = e.lngLat.lng;
-
-        // Se c'è già un segnalino, rimuoverlo
-        if (marker) {
-            marker.remove();
-        }
-
-        // Aggiungere un nuovo segnalino dove l'utente ha cliccato
-        marker = new tt.Marker().setLngLat([lon, lat]).addTo(map);
-
-        // Aggiornare i campi nascosti con le coordinate
-        document.getElementById('latitude').value = lat;
-        document.getElementById('longitude').value = lon;
-
-        // Centrare e zoommare sulla posizione del clic
-        map.flyTo({
-            center: [lon, lat],
-            zoom: 15
-        });
-    });
 
   // Inizializza la mappa quando il documento è pronto
   document.addEventListener("DOMContentLoaded", function () {
       initMap();
   });
+  
+  
