@@ -17,6 +17,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    {{-- tomtom --}}
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.15.0/maps/maps-web.min.js"></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.15.0/services/services-web.min.js"></script>
+    <link rel="stylesheet" href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.19.0/maps/maps.css">
+
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
 </head>
@@ -78,6 +83,10 @@
         </div>
 
     </div>
+    
+    <script>
+      
+    </script>
 </body>
 
 </html>

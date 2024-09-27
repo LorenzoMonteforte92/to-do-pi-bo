@@ -1,1 +1,17 @@
 @import '~bootstrap/scss/bootstrap';
+
+#map{
+    height: 50vh; 
+    width: 90vw; 
+}
+
+.map-container{
+    overflow: clip;
+}
+
+@media screen and (min-width: 992px) {
+    #map { 
+        height: 50vh; 
+        width: 60vw; 
+} 
+}

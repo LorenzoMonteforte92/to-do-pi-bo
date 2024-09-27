@@ -56,6 +56,23 @@
       @enderror
   </div>
 
+  <div class="mb-4 map-container d-flex flex-column">
+    <label for="addressInput" class="form-label"><strong>Cerca indirizzo</strong></label>
+
+    <div>
+        <input id="addressInput" class="form-control" type="text" placeholder="Inserisci via, civico e città">
+        <button type="button" id="address-search" class="btn btn-secondary mt-2">Cerca indirizzo</button>
+    </div>
+
+    <!-- Mappa -->
+    <div id="map" class="rounded align-self-center"></div>
+
+    <!-- Campi nascosti per latitudine e longitudine -->
+    <input type="hidden" name="latitude" id="latitude">
+    <input type="hidden" name="longitude" id="longitude">
+</div>
+    
+
   <div class="mb-4">
     <label for="bio" class="form-label brand-text-color-1"><strong>Racconta qualcosa riguardo la tua attività</strong></label>
     <textarea class="form-control @error ('bio') is-invalid @enderror " rows="8" id="bio" name="bio">{{ old('bio') }}</textarea>
