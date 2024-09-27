@@ -27,7 +27,7 @@ import.meta.glob([
       map.addControl(new tt.NavigationControl());
 
       // Marker per la posizione selezionata
-      marker = new tt.Marker().setLngLat([12.496366, 41.902782]).addTo(map);
+    //   marker = new tt.Marker().setLngLat([12.496366, 41.902782]).addTo(map);
 
       // Servizio di ricerca di TomTom
       searchBox = new tt.services.SearchBox(tt.services, {
