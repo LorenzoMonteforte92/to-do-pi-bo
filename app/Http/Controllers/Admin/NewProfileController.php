@@ -113,7 +113,7 @@ class NewProfileController extends Controller
 
         // Se il profilo non esiste o non è associato all'utente, abort
         if (!$newProfile) {
-            abort(404, 'Profilo non trovato');
+            abort(403, 'Accesso non consentito');
         }
     
         // Autorizza l'azione usando la policy
@@ -130,9 +130,20 @@ class NewProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        // utilizza il metodo definito nel model per recuperare il profilo associato
+        $newProfile = $user->newProfiles()->with('organisers')->first();
+
+        // Se il profilo non esiste o non è associato all'utente, abort
+        if (!$newProfile) {
+            abort(403, 'Accesso non consentito');
+        }
+    
+        // Autorizza l'azione usando la policy
+        $this->authorize('view', $newProfile);
+
+        return view('admin.profile.edit' , compact( 'user', 'newProfile'));
     }
 
     /**
