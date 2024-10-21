@@ -5,7 +5,10 @@ import.meta.glob([
     '../img/**'
 ])
 
+let mapElement = document.getElementById('map');
+let routeName = mapElement.getAttribute('data-route');
 
+console.log(routeName)
 
   // Variabili per la mappa e il servizio di ricerca TomTom
   let map, marker, searchBox;
@@ -41,36 +44,43 @@ import.meta.glob([
           }
       });
 
-    //   // Evento per cercare e selezionare un indirizzo
-    //   const searchInput = document.getElementById('searchInput');
-    //   searchInput.addEventListener('input', function() {
-    //       searchBox.getSearchResults({
-    //           query: searchInput.value,
-    //           limit: 5
-    //       }).then(response => {
-    //           if (response.results.length > 0) {
-    //               const place = response.results[0];
-    //               const position = place.position;
-                  
-    //               // Centra la mappa e posiziona il marker
-    //               map.flyTo({
-    //                   center: [position.lon, position.lat],
-    //                   zoom: 15
-    //               });
-    //               marker.setLngLat([position.lon, position.lat]);
-
-    //               // Aggiorna i campi nascosti con latitudine e longitudine
-    //               document.getElementById('latitude').value = position.lat;
-    //               document.getElementById('longitude').value = position.lon;
-    //           }
-    //       });
-    //   });
   }
+
+  function initEditMap() {
+    // Imposta la mappa iniziale
+    const pisa = [10.401886, 43.715928];
+    map = tt.map({
+        key: apiKey,
+        container: 'map',
+        center: pisa,
+        zoom: 13
+    });
+
+    // Aggiunge i controlli di zoom alla mappa
+    map.addControl(new tt.NavigationControl());
+
+    // Marker per la posizione selezionata
+  //   marker = new tt.Marker().setLngLat([12.496366, 41.902782]).addTo(map);
+
+    // Servizio di ricerca di TomTom
+    searchBox = new tt.services.SearchBox(tt.services, {
+        minNumberOfCharacters: 3,
+        searchOptions: {
+            key: apiKey,
+            language: 'it-IT'
+        },
+        autocompleteOptions: {
+            key: apiKey
+        }
+    });
+
+}
 
   
   // Funzione per cercare l'indirizzo
   document.getElementById('address-search').addEventListener('click', function() {
-    let address = document.getElementById('addressInput').value;
+    let address = document.getElementById('addressInput').value + ' Pisa';
+    console.log(address)
 
     // Chiamata API per la geocodifica
     fetch(`https://api.tomtom.com/search/2/geocode/${encodeURIComponent(address)}.json?key=IVJ2d30z4OsD1BOoMEvX2TGYuMGgRaOG`)

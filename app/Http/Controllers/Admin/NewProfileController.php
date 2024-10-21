@@ -15,6 +15,7 @@ use App\Models\User as ModelsUser;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use Illuminate\Support\Facades\Route;
 
 class NewProfileController extends Controller
 {
@@ -143,7 +144,11 @@ class NewProfileController extends Controller
         // Autorizza l'azione usando la policy
         $this->authorize('view', $newProfile);
 
-        return view('admin.profile.edit' , compact( 'user', 'newProfile'));
+        $user = Auth::user();
+        $organiser = Organiser::all();
+        $currentRoute = Route::currentRouteName();
+
+        return view('admin.profile.edit' , compact( 'user', 'newProfile', 'organiser', 'currentRoute'));
     }
 
     /**
@@ -153,9 +158,30 @@ class NewProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validate = $request->validate(
+            [
+                'name' => 'required|string|max:100',
+                'img' => 'nullable|file|mimes:png,jpg,jpeg|max:2044',
+                'phone_num' => 'nullable|string|max:15|min:10',
+                'bio' => 'nullable|string|min:10',
+            ],
+            [
+                'name.required' => 'Aggiungi il nome della tua realtà',
+                'name.max' => 'Il nome ha raggiunto la lunghezza massima di caratteri',
+                'img.mimes' => 'il formato del logo deve essere png, jpg o jpeg',
+                'img.max' => 'il file non può superare i 2mb',
+                'phone_num.min' => 'il numero di telefono deve contenere minimo 10 cifre',
+                'phone_num.max' => 'il numero di telefono deve contenere massimo 15 cifre',
+                'bio.min' => 'Descriviti usando almeno 10 caratteri',
+            ]
+
+        );
+        $formdata = $request->all();
+
+        return redirect()->route('admin.profile.show', ['user' => Auth::user()->slug])->with('message', 'Ottimo! ' . Auth::user()->name . ' hai aggiornato con sucesso il tuo profilo');;
+        
     }
 
     /**
