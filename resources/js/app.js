@@ -8,6 +8,7 @@ import.meta.glob([
 
 let mapElement = document.getElementById('map');
 let routeName = mapElement.getAttribute('data-route');
+let locationName = mapElement.getAttribute('data-name');
 
   // Variabili per la mappa e il servizio di ricerca TomTom
   let map, marker, searchBox;
@@ -63,7 +64,14 @@ let routeName = mapElement.getAttribute('data-route');
     map.addControl(new tt.NavigationControl());
 
     //  Marker per la posizione selezionata
+
+    let popupOffsets = {
+        top: [1, 1],
+    }
+
       marker = new tt.Marker().setLngLat(userVenueLocation).addTo(map);
+      let popup = new tt.Popup({ offset: popupOffsets }).setHTML(`${locationName}`);
+      marker.setPopup(popup).togglePopup();
 
       // Servizio di ricerca di TomTom
       searchBox = new tt.services.SearchBox(tt.services, {

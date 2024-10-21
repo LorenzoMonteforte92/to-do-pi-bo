@@ -66,7 +66,7 @@
     </div>
 
     <!-- Mappa -->
-    <div id="map" class="rounded align-self-center" data-route={{Route::currentRouteName()}} data-latitude={{$newProfile->latitude}} data-longitude={{$newProfile->longitude}} ></div>
+    <div id="map" class="rounded align-self-center" data-route={{Route::currentRouteName()}} data-latitude={{$newProfile->latitude}} data-longitude={{$newProfile->longitude}} data-name={{$newProfile->name}}></div>
 
     <!-- Campi nascosti per latitudine e longitudine -->
     <input type="hidden" name="latitude" id="latitude">
