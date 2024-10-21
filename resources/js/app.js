@@ -5,10 +5,9 @@ import.meta.glob([
     '../img/**'
 ])
 
+
 let mapElement = document.getElementById('map');
 let routeName = mapElement.getAttribute('data-route');
-
-console.log(routeName)
 
   // Variabili per la mappa e il servizio di ricerca TomTom
   let map, marker, searchBox;
@@ -47,23 +46,27 @@ console.log(routeName)
   }
 
   function initEditMap() {
+
+    let userLongitude = Number(mapElement.getAttribute('data-longitude'))
+    let userLatitude = Number(mapElement.getAttribute('data-latitude'))
+    let userVenueLocation = [userLongitude, userLatitude];
+    
     // Imposta la mappa iniziale
-    const pisa = [10.401886, 43.715928];
     map = tt.map({
         key: apiKey,
         container: 'map',
-        center: pisa,
-        zoom: 13
+        center: userVenueLocation,
+        zoom: 16
     });
 
     // Aggiunge i controlli di zoom alla mappa
     map.addControl(new tt.NavigationControl());
 
-    // Marker per la posizione selezionata
-  //   marker = new tt.Marker().setLngLat([12.496366, 41.902782]).addTo(map);
+    //  Marker per la posizione selezionata
+      marker = new tt.Marker().setLngLat(userVenueLocation).addTo(map);
 
-    // Servizio di ricerca di TomTom
-    searchBox = new tt.services.SearchBox(tt.services, {
+      // Servizio di ricerca di TomTom
+      searchBox = new tt.services.SearchBox(tt.services, {
         minNumberOfCharacters: 3,
         searchOptions: {
             key: apiKey,
@@ -73,13 +76,12 @@ console.log(routeName)
             key: apiKey
         }
     });
-
 }
 
   
   // Funzione per cercare l'indirizzo
   document.getElementById('address-search').addEventListener('click', function() {
-    let address = document.getElementById('addressInput').value + ' Pisa';
+    let address = document.getElementById('addressInput').value + ' Pisa'; //la stringa finale fa in modo che gli indirizzi vengano cercati solo su pisa
     console.log(address)
 
     // Chiamata API per la geocodifica
@@ -90,10 +92,6 @@ console.log(routeName)
             let position = data.results[0].position; // Latitudine e longitudine
             let lat = position.lat;
             let lon = position.lon;
-
-
-        // mettere Pisa come città di default
-        console.log(data.results)
 
             // Se c'è già un segnalino, rimuoverlo
             if (marker) {
@@ -122,9 +120,17 @@ console.log(routeName)
 });
 
 
+
   // Inizializza la mappa quando il documento è pronto
   document.addEventListener("DOMContentLoaded", function () {
-      initMap();
+        
+    //verifica il nome della rotta, in base a questo parametro fa partire la funzione necessaria
+    if(routeName === 'admin.profile.edit'){
+
+        initEditMap()
+    } else {
+        initMap()   
+    }
   });
   
   
