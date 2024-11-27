@@ -94,6 +94,8 @@ class NewProfileController extends Controller
         $newProfile->fill($formdata);
         $newProfile->save();
 
+        //creazione relazione tra tabella newProfile e organisers
+
         if($request->has('organiser_id')) {
             $newProfile->organisers()->sync($formdata['organiser_id']);
         }

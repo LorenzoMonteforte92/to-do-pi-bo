@@ -9,6 +9,29 @@
     overflow: clip;
 }
 
+#welcome-navbar{
+    background-color: #121120;
+}
+
+body{
+    background-color: #0C0B10;
+}
+
+nav{
+    a{
+        color: bisque !important;
+        h3{
+            color: white !important;
+        }
+    }
+}
+
+#welcome-container{
+    h1{
+        color: bisque;
+    }
+}
+
 @media screen and (min-width: 992px) {
     #map { 
         height: 50vh; 
