@@ -72,7 +72,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.events.index' ? 'bg-secondary' : '' }}" href="{{ route('admin.events.index',  ['event' => Auth::user()->slug] )}}">
+                                <a class="nav-link text-white {{ Route::currentRouteName() == 'admin.event.index' ? 'bg-secondary' : '' }}" href="{{ route('admin.event.index')}}">
                                     <i class="fa-solid fa-tachometer-alt fa-lg fa-fw"></i> Crea Nuovo Evento
                                 </a>
                             </li>

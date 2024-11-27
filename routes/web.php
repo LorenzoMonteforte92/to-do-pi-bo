@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\NewProfileController;
+use App\Http\Controllers\Admin\EventController;
 
 
 /*
@@ -36,6 +37,9 @@ Route::middleware(['auth', 'verified'])
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('profile', NewProfileController::class)->parameters([
         'profile' => 'user:slug'
+    ]);
+    Route::resource('event', EventController::class)->parameters([
+        'event' => 'event:slug'
     ]);
 });
 

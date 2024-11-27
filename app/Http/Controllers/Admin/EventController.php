@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Event;
 
-class EventsController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class EventsController extends Controller
      */
     public function index()
     {
-        return view('admin.events.index');
+  
+
+        return view('admin.profile.index');
     }
 
     /**
