@@ -80,7 +80,7 @@ class EventController extends Controller
         $newEvent->fill($formdata);
         $newEvent->save();
 
-        return redirect()->route('admin.profile.show', ['slug' => $newEvent->slug])->with('message', 'Grande ' . Auth::user()->name . '! evento creato con successo');;
+        return redirect()->route('admin.event.show', ['event' => $newEvent->slug])->with('message', 'Grande ' . Auth::user()->name . '! evento creato con successo');;
     }
 
     /**
@@ -89,9 +89,20 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(NewProfile $newProfile, $eventSlug)
     {
-        //
+        // Recupera l'evento associato al profilo
+        $event = $newProfile->events()->where('slug', $eventSlug)->first();
+
+        // Se l'evento non esiste, aborta con un errore 404
+        if (!$event) {
+            abort(404, 'Evento non trovato');
+        }
+
+        //laravel policy
+        $this->authorize('view', $event);
+
+        return view('admin.event.show', compact('user', 'newProfile', 'event'));
     }
 
     /**

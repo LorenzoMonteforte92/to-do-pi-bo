@@ -22,7 +22,7 @@ class Event extends Model
         'slug'
     ];
     
-    public function user(){
+    public function newProfile(){
         return $this->belongsTo(NewProfile::class);
     }
 }

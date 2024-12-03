@@ -68,8 +68,8 @@
     <div id="map" class="rounded align-self-center"></div>
 
     <!-- Campi nascosti per latitudine e longitudine -->
-    <input type="hidden" name="latitude" id="latitude">
-    <input type="hidden" name="longitude" id="longitude">
+    <input type="hidden" name="latitude" id="latitude" >
+    <input type="hidden" name="longitude" id="longitude" >
 </div>
     
 
