@@ -61,8 +61,8 @@
     <label for="addressInput" class="form-label"><strong>Modifica indirizzo</strong></label>
 
     <div>
-        <input id="addressInput" class="form-control" type="text" placeholder="Inserisci via, civico e città">
-        <span><button type="button" id="address-search" class="btn btn-secondary mt-2">Cerca indirizzo</button></span>
+        <input id="addressInput" class="form-control" type="text" placeholder="Inserisci il nome della via e il civico">
+        <span><button type="button" id="address-search" class="btn btn-secondary mt-2">Clicca per cercare l'indirizzo</button></span>
     </div>
 
     <!-- Mappa -->

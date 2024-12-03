@@ -32,7 +32,7 @@
 
     <div class="mb-4" >
       <label class="form-label"  for="organiser_id"><strong>Che tipo di professionista sei?</strong></label>
-    <select class="form-select" aria-label="Default select example" id="organiser_id" name="organiser_id" >
+      <select class="form-select" aria-label="Default select example" id="organiser_id" name="organiser_id" >
         <option value="">Seleziona l'opzione che più ti rappresenta</option>
         @foreach ($organiser as $singleOrganiser)
             <option @selected($singleOrganiser->id == old('organiser_id')) value="{{ $singleOrganiser->id }}">{{ Str::ucfirst($singleOrganiser->name) }}</option>

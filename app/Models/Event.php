@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'img',
+        'description',
+        'latitude',
+        'longitude',
+        'date',
+        'time',
+        'reservation_required',
+        'cost',
+        'slug'
+    ];
     
     public function user(){
         return $this->belongsTo(NewProfile::class);

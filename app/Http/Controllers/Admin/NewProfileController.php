@@ -30,6 +30,8 @@ class NewProfileController extends Controller
         $types = Type::all();
         $organiser = Organiser::all();
 
+        
+
         return view('admin.profile.index' , compact('user', 'types', 'organiser'));
     }
 
