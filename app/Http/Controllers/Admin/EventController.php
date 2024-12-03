@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -15,9 +16,10 @@ class EventController extends Controller
      */
     public function index()
     {
-  
+        $user = Auth::user();
+        $events = Event::all();
 
-        return view('admin.profile.index');
+        return view('admin.event.index', compact('user', 'events'));
     }
 
     /**
@@ -27,7 +29,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        return view('admin.event.create', compact('user'));
     }
 
     /**

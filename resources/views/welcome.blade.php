@@ -7,7 +7,7 @@
             ToDoPi
         </h1>
 
-        <p class="fs-4 text-center color-white">Gestisci e aggiorna il tuo profilo, crea e pubblica i tuoi eventi, dona vita alla città</p>
+        <p id="welcome-p" class="fs-4 text-center">Gestisci e aggiorna il tuo profilo, crea e pubblica i tuoi eventi, dona vita alla città</p>
     </div>
 </div>
 
